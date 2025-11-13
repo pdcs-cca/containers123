@@ -10,11 +10,11 @@ Ejemplo
 exit 123
 }
 
-test $# -lt 2 && _uso
+test $# -ne 2 && _uso
 
 _APP=$1
 _RAIZ=$2
-test ! -x $_APP && _uso
+ldd $_APP &>/dev/null || _uso
 
 _LD_LINUX="/lib64/ld-linux-x86-64.so.2 /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
 _LIBS=$(ldd $_APP | awk ' NF > 2 {system("echo "$3"*")}' | xargs)
